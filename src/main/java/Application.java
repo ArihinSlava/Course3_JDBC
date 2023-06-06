@@ -1,4 +1,10 @@
+import dao.EmployeeDAO;
+import dao.EmployeeDAOImpl;
+import model.Employee;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Application {
@@ -23,5 +29,24 @@ public class Application {
                 System.out.println(employeeCity);
             }
         }
+
+        try (Connection connection = DriverManager.getConnection(url, user, password)) {
+            EmployeeDAO employeeDAO = new EmployeeDAOImpl(connection);
+
+
+            Employee employee = new Employee(8, "Marina", "Gebels", "Woman", 44, 1);
+            employeeDAO.create(employee);
+            System.out.println(employeeDAO.readById(5));
+
+            List<Employee> employeeList = new ArrayList<>(employeeDAO.readAll());
+            for (Employee employees : employeeList) {
+                System.out.println(employees);
+
+                employeeDAO.updateEmployeeById(8, "Ekaterina", "Myshkina", "Woman", 22, 3);
+
+                employeeDAO.deleteById(8);
+            }
+        }
     }
 }
+

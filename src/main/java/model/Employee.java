@@ -27,9 +27,21 @@ public class Employee {
     private String gender;
     @Column(name = "age", nullable = false)
     private int age;
-    @Column(name = "city_id", nullable = false)
-    private int cityId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "city_id")
+    private City city;
 
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", age=" + age +
+                ", city=" + city +
+                '}';
+    }
 }
 
 
